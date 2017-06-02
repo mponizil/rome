@@ -58,6 +58,7 @@ function defaults (options, cal) {
   if (o.dateValidator === no) { o.dateValidator = Function.prototype; }
   if (o.timeValidator === no) { o.timeValidator = Function.prototype; }
   if (o.timeFormat === no) { o.timeFormat = 'HH:mm'; }
+  if (o.staticWeeksInMonth === no) { o.staticWeeksInMonth = false; }
   if (o.weekStart === no) { o.weekStart = momentum.moment().weekday(0).day(); }
   if (o.weekdayFormat === no) { o.weekdayFormat = 'min'; }
   if (o.weekdayFormat === 'long') {

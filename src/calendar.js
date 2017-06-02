@@ -465,7 +465,7 @@ function calendar (calendarOptions) {
     var prevMonth = hiddenWhen(offset !== 0, [o.styles.dayBodyElem, o.styles.dayPrevMonth]);
     var nextMonth = hiddenWhen(offset !== o.monthsInCalendar - 1, [o.styles.dayBodyElem, o.styles.dayNextMonth]);
     var disabled = o.styles.dayDisabled;
-    var lastDay;
+    var lastDay, nextMonthDayCount;
 
     part({
       base: first.clone().subtract(firstDay, 'days'),
@@ -481,12 +481,21 @@ function calendar (calendarOptions) {
     });
 
     lastDay = first.clone().add(total, 'days');
+    nextMonthDayCount = weekdayCount - tr.children.length;
 
     part({
       base: lastDay,
-      length: weekdayCount - tr.children.length,
+      length: nextMonthDayCount,
       cell: nextMonth
     });
+
+    if (o.staticWeeksInMonth && tr.parentNode.children.length === 5) {
+      part({
+        base: lastDay.clone().add(nextMonthDayCount, 'days'),
+        length: weekdayCount,
+        cell: nextMonth
+      });
+    }
 
     back.disabled = !isInRangeLeft(first, true);
     next.disabled = !isInRangeRight(lastDay, true);
